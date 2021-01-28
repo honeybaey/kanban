@@ -1,0 +1,8 @@
+.main {
+  min-height: 578px;
+  background-color: #0079bf;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+}

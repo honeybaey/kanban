@@ -1,0 +1,65 @@
+.extralist-container {
+  max-width: 258px;
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+  display: inline-block;
+  margin-top: 15px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.extralist-icon {
+  display: block;
+  text-align: end;
+  color: #262626;
+}
+
+.extralist-head {
+  display: block;
+  background-color: #fff;
+  padding: 8px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.extralist {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  width: 100%;
+  margin-top: 3px;
+  border-radius: 5px;
+}
+
+.extralist-item {
+  list-style: none;
+  padding: 8px 6px;
+  cursor: pointer;
+
+  display: block;
+}
+
+.extralist-item:hover {
+  background: #dedede;
+}
+
+.extralist-item:first-child:hover {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.extralist-item:last-child:hover {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.show {
+  display: block;
+}
