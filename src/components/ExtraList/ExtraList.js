@@ -10,10 +10,13 @@ export default class ExtraList extends Component {
 
     return (
       <div className="extralist-container">
-        <span className="extralist-head" onClick={this.props.onShowExtraList}>
+        <span
+          className="extralist-head"
+          onClick={this.props.onShowExtraListTasks}
+        >
           <i
             className={
-              !this.props.isExtraListShow
+              !this.props.isExtraListTasksShow
                 ? "extralist-icon fa fa-chevron-down"
                 : "extralist-icon fa fa-chevron-up"
             }
@@ -21,13 +24,21 @@ export default class ExtraList extends Component {
         </span>
         <ul
           className={
-            !this.props.isExtraListShow
+            !this.props.isExtraListTasksShow
               ? extralistClassName
               : `${extralistClassName} show`
           }
         >
-          {this.props.issues.map((item) => (
-            <li className="extralist-item" data-task-id={item.id} key={item.id}>
+          {this.props.issues.map((item, index) => (
+            <li
+              className="extralist-item"
+              data-task-id={item.id}
+              key={item.id}
+              onClick={() => {
+                this.props.onSelectTask(this.props.listIndex, index);
+                this.props.closeExtralistHandler();
+              }}
+            >
               {item.name}
             </li>
           ))}

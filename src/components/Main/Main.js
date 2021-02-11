@@ -15,6 +15,10 @@ export default class Main extends Component {
   }
 
   componentDidMount() {
+    this.disableButton();
+  }
+
+  disableButton = () => {
     const emptyItems = [];
 
     this.props.dataMock.forEach((item, index) => {
@@ -24,7 +28,17 @@ export default class Main extends Component {
     });
 
     this.setState({ emptyLists: emptyItems });
-  }
+
+    /* prevArr.length === newArr.length &&
+      prevArr.every((elem, index) => elem === newArr[index]); */
+
+    /* const isEqual = (prevArr, newArr) => {
+      return (
+        prevArr.length === newArr.length &&
+        prevArr.every((elem, index) => elem === newArr[index])
+      );
+    }; */
+  };
 
   render() {
     return (
@@ -39,9 +53,10 @@ export default class Main extends Component {
                 {...item}
                 dataMock={this.props.dataMock}
                 tasksIdCounter={this.props.tasksIdCounter}
-                index={index}
+                listIndex={index}
                 isBtnDisabled={this.state.emptyLists.includes(index)}
                 createTask={this.props.createTask}
+                onSelectTask={this.props.onSelectTask}
               />
             ))
           }

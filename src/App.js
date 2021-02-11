@@ -10,18 +10,18 @@ export default class App extends Component {
   constructor() {
     super();
 
-    this.tasksIdCounter = 16;
+    this.tasksIdCounter = this.getLastTaskId(data);
 
     this.state = {
-      data: [],
+      data: data,
     };
   }
 
   componentDidMount() {
-    this.setState({ data });
+    // this.setState({ data });
   }
 
-  createTask = (name) => {
+  createTask = (name, taskIndex) => {
     const newTask = {
       id: this.tasksIdCounter++,
       name: "",
@@ -35,6 +35,27 @@ export default class App extends Component {
     });
   };
 
+  onSelectTask = (listIndex, taskIndex) => {
+    const copy = [...this.state.data];
+
+    const prevList = copy[listIndex - 1].issues;
+    const selectedList = copy[listIndex].issues;
+    const selectedTask = prevList[taskIndex];
+
+    prevList.splice(taskIndex, 1);
+    selectedList.push(selectedTask);
+
+    this.setState({ data: copy });
+  };
+
+  getLastTaskId = (data) => {
+    const ids = [];
+    for (let i = 0; i < data.length; i++) {
+      data[i].issues.forEach((issue) => ids.push(issue.id));
+    }
+    return ids.reduce((prev, next) => (next > prev ? next : prev)) + 1;
+  };
+
   render() {
     return (
       <div className="App">
@@ -44,6 +65,7 @@ export default class App extends Component {
             dataMock={this.state.data}
             tasksIdCounter={this.tasksIdCounter}
             createTask={this.createTask}
+            onSelectTask={this.onSelectTask}
           />
           <Footer dataMock={this.state.data} />
         </BrowserRouter>

@@ -23,19 +23,30 @@ export default class ListItem extends Component {
 
     this.state = {
       isExtraListShow: false,
+      isExtraListTasksShow: false,
     };
   }
 
-  addTask = (e) => {
+  onShowExtraListTasks = () => {
+    this.state.isExtraListTasksShow
+      ? this.setState({ isExtraListTasksShow: false })
+      : this.setState({
+          isExtraListTasksShow: true,
+        });
+  };
+
+  addTaskHandler = () => {
     this.setState({
       isExtraListShow: true,
     });
   };
 
-  onShowExtraList = () => {
+  closeExtralistHandler = () => {
     this.state.isExtraListShow
       ? this.setState({ isExtraListShow: false })
-      : this.setState({ isExtraListShow: true });
+      : this.setState({
+          isExtraListShow: true,
+        });
   };
 
   render() {
@@ -43,10 +54,11 @@ export default class ListItem extends Component {
       title,
       issues,
       tasksIdCounter,
-      index,
+      listIndex,
       dataMock,
       isBtnDisabled,
       createTask,
+      onSelectTask,
     } = this.props;
 
     return (
@@ -65,16 +77,20 @@ export default class ListItem extends Component {
         {this.state.isExtraListShow ? (
           <ExtraList
             title={title}
-            issues={dataMock[index - 1].issues}
+            issues={dataMock[listIndex - 1].issues}
             tasksIdCounter={tasksIdCounter}
             isExtraListShow={this.state.isExtraListShow}
-            onShowExtraList={this.onShowExtraList}
+            isExtraListTasksShow={this.state.isExtraListTasksShow}
+            onShowExtraListTasks={this.onShowExtraListTasks}
+            listIndex={listIndex}
+            onSelectTask={onSelectTask}
+            closeExtralistHandler={this.closeExtralistHandler}
           />
         ) : null}
         <button
           className="dropdown__button-add"
           id={`button-${deleteSpaces(title)}`}
-          onClick={index === 0 ? createTask : this.addTask}
+          onClick={listIndex === 0 ? createTask : this.addTaskHandler}
           disabled={isBtnDisabled}
         >
           <i className="dropdown__button-icon fa fa-plus"></i>
