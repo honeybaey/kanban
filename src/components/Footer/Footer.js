@@ -8,10 +8,10 @@ const Footer = (props) => {
   return (
     <footer className="footer">
       <div className="footer__left-side">
-        <span>Active tasks: {props.dataMock[0]?.issues.length} </span>
+        <span>Active tasks: {props.backlogs[0]?.issues.length} </span>
         <span>
           Finished tasks:{" "}
-          {props.dataMock[props.dataMock.length - 1]?.issues.length}{" "}
+          {props.backlogs[props.backlogs.length - 1]?.issues.length}{" "}
         </span>
       </div>
       <div className="footer__right-side">

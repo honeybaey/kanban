@@ -1,43 +1,48 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import ListItem from "../ListItem/ListItem";
-import ListItemMore from "../ListItemMore/ListItemMore";
+import Backlog from "../Backlog/Backlog";
+import BacklogMore from "../BacklogMore/BacklogMore";
 
 import "./Main.css";
+
+let _ = require("lodash/core");
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      emptyLists: [],
+      backlogs: [],
     };
   }
 
   componentDidMount() {
-    this.disableButton();
+    this.enhancedData();
   }
 
-  disableButton = () => {
-    const emptyItems = [];
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.backlogs.every(
+        (elem, index) => elem === this.state.backlogs[index]
+      )
+    ) {
+      this.enhancedData();
+    }
+  }
 
-    this.props.dataMock.forEach((item, index) => {
-      if (!item.issues.length) {
-        emptyItems.push(index + 1);
-      }
-    });
+  enhancedData = () => {
+    const { backlogs } = this.props;
 
-    this.setState({ emptyLists: emptyItems });
+    const data = [backlogs[0]];
 
-    /* prevArr.length === newArr.length &&
-      prevArr.every((elem, index) => elem === newArr[index]); */
+    for (let i = 1; i < backlogs.length; i++) {
+      data.push({
+        ...backlogs[i],
+        isDisabled: !backlogs[i - 1].issues.length,
+      });
+    }
 
-    /* const isEqual = (prevArr, newArr) => {
-      return (
-        prevArr.length === newArr.length &&
-        prevArr.every((elem, index) => elem === newArr[index])
-      );
-    }; */
+    this.setState({ backlogs: data });
   };
 
   render() {
@@ -47,14 +52,14 @@ export default class Main extends Component {
           path="/"
           exact
           render={() =>
-            this.props.dataMock.map((item, index) => (
-              <ListItem
+            this.state.backlogs.map((item, index) => (
+              <Backlog
                 key={item.id}
                 {...item}
-                dataMock={this.props.dataMock}
+                backlogs={this.state.backlogs}
                 tasksIdCounter={this.props.tasksIdCounter}
                 listIndex={index}
-                isBtnDisabled={this.state.emptyLists.includes(index)}
+                isDisabledBtn={this.state.backlogs[index]?.isDisabled}
                 createTask={this.props.createTask}
                 onSelectTask={this.props.onSelectTask}
               />
@@ -64,10 +69,10 @@ export default class Main extends Component {
         <Route
           path="/backlog"
           render={() => (
-            <ListItemMore
-              key={this.props.dataMock[0].id}
-              {...this.props.dataMock[0]}
-              dataMock={this.props.dataMock[0]}
+            <BacklogMore
+              key={this.state.backlogs[0].id}
+              {...this.state.backlogs[0]}
+              backlogs={this.state.backlogs[0]}
               tasksIdCounter={this.props.tasksIdCounter}
             />
           )}
@@ -75,10 +80,10 @@ export default class Main extends Component {
         <Route
           path="/ready"
           render={() => (
-            <ListItemMore
-              key={this.props.dataMock[1].id}
-              {...this.props.dataMock[1]}
-              dataMock={this.props.dataMock[1]}
+            <BacklogMore
+              key={this.state.backlogs[1].id}
+              {...this.state.backlogs[1]}
+              backlogs={this.state.backlogs[1]}
               tasksIdCounter={this.props.tasksIdCounter}
             />
           )}
@@ -86,10 +91,10 @@ export default class Main extends Component {
         <Route
           path="/inprogress"
           render={() => (
-            <ListItemMore
-              key={this.props.dataMock[2].id}
-              {...this.props.dataMock[2]}
-              dataMock={this.props.dataMock[2]}
+            <BacklogMore
+              key={this.state.backlogs[2].id}
+              {...this.state.backlogs[2]}
+              backlogs={this.state.backlogs[2]}
               tasksIdCounter={this.props.tasksIdCounter}
             />
           )}
@@ -97,10 +102,10 @@ export default class Main extends Component {
         <Route
           path="/finished"
           render={() => (
-            <ListItemMore
-              key={this.props.dataMock[3].id}
-              {...this.props.dataMock[3]}
-              dataMock={this.props.dataMock[3]}
+            <BacklogMore
+              key={this.state.backlogs[3].id}
+              {...this.state.backlogs[3]}
+              backlogs={this.state.backlogs[3]}
               tasksIdCounter={this.props.tasksIdCounter}
             />
           )}

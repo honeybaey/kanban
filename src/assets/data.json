@@ -59,14 +59,7 @@
     "id": 3,
     "title": "in progress",
     "issues": [
-      {
-        "id": 12,
-        "name": "User page – performance issues"
-      },
-      {
-        "id": 13,
-        "name": "Auth bugfix"
-      }
+      
     ]
   },
   {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./ListItem.css";
+import "./Backlog.css";
 import TaskItem from "../TaskItem/TaskItem";
 import { Link } from "react-router-dom";
 import ExtraList from "../ExtraList/ExtraList";
@@ -17,7 +17,7 @@ export const deleteSpaces = (str) => {
   return newStr.toLowerCase();
 };
 
-export default class ListItem extends Component {
+export default class Backlog extends Component {
   constructor(props) {
     super(props);
 
@@ -55,8 +55,8 @@ export default class ListItem extends Component {
       issues,
       tasksIdCounter,
       listIndex,
-      dataMock,
-      isBtnDisabled,
+      backlogs,
+      isDisabledBtn,
       createTask,
       onSelectTask,
     } = this.props;
@@ -77,7 +77,7 @@ export default class ListItem extends Component {
         {this.state.isExtraListShow ? (
           <ExtraList
             title={title}
-            issues={dataMock[listIndex - 1].issues}
+            issues={backlogs[listIndex - 1].issues}
             tasksIdCounter={tasksIdCounter}
             isExtraListShow={this.state.isExtraListShow}
             isExtraListTasksShow={this.state.isExtraListTasksShow}
@@ -91,7 +91,7 @@ export default class ListItem extends Component {
           className="dropdown__button-add"
           id={`button-${deleteSpaces(title)}`}
           onClick={listIndex === 0 ? createTask : this.addTaskHandler}
-          disabled={isBtnDisabled}
+          disabled={isDisabledBtn}
         >
           <i className="dropdown__button-icon fa fa-plus"></i>
           Add card

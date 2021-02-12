@@ -62,12 +62,12 @@ export default class App extends Component {
         <BrowserRouter>
           <Header />
           <Main
-            dataMock={this.state.data}
+            backlogs={this.state.data}
             tasksIdCounter={this.tasksIdCounter}
             createTask={this.createTask}
             onSelectTask={this.onSelectTask}
           />
-          <Footer dataMock={this.state.data} />
+          <Footer backlogs={this.state.data} />
         </BrowserRouter>
       </div>
     );

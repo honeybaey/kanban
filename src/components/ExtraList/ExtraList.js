@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./ExtraList.css";
-import { deleteSpaces } from "../ListItem/ListItem.js";
+import { deleteSpaces } from "../Backlog/Backlog.js";
 
 export default class ExtraList extends Component {
   render() {

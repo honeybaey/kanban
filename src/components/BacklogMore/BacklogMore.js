@@ -1,8 +1,8 @@
 import React from "react";
 import TaskItemMore from "../TaskItemMore/TaskItemMore";
-import "./ListItemMore.css";
+import "./BacklogMore.css";
 
-const ListItemMore = (props) => {
+const BacklogMore = (props) => {
   const { issues, dataMock, tasksIdCounter } = props;
   return (
     <section className="list-container">
@@ -15,4 +15,4 @@ const ListItemMore = (props) => {
   );
 };
 
-export default ListItemMore;
+export default BacklogMore;
