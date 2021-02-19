@@ -1,12 +1,11 @@
 import React from "react";
-import TaskItemMore from "../TaskItemMore/TaskItemMore";
+import TaskMore from "../TaskMore/TaskMore";
 import "./BacklogMore.css";
 
-const BacklogMore = (props) => {
-  const { issues, dataMock, tasksIdCounter } = props;
+const BacklogMore = ({ issues, dataMock, tasksIdCounter }) => {
   return (
     <section className="list-container">
-      <TaskItemMore
+      <TaskMore
         issues={issues}
         dataMock={dataMock}
         tasksIdCounter={tasksIdCounter}

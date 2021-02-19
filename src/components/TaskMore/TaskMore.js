@@ -1,7 +1,7 @@
 import React from "react";
-import "./TaskItemMore.css";
+import "./TaskMore.css";
 
-const TaskItemMore = (props) => {
+const TaskMore = (props) => {
   return (
     <>
       {props.issues.map((item) => (
@@ -27,4 +27,4 @@ const TaskItemMore = (props) => {
   );
 };
 
-export default TaskItemMore;
+export default TaskMore;

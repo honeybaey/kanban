@@ -1,19 +1,16 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import "./Header.css";
 import logo from "./app-logo.png";
 import avatar from "./user-avatar.png";
 import { Link } from "react-router-dom";
 
-class Header extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isDropdownShow: false,
-    };
-  }
+class Header extends PureComponent {
+  state = {
+    isDropdownShow: false,
+  };
 
   render() {
-    let fragment = (
+    const fragment = (
       <div className="user__dropdown">
         <ul className="user__dropdown-list">
           <li className="user__dropdown-item">
@@ -66,7 +63,8 @@ class Header extends Component {
                   : "user__icon fa fa-angle-up"
               }
             ></i>
-            {this.state.isDropdownShow ? fragment : null}
+            {/* {this.state.isDropdownShow ? fragment : null} */}
+            {this.state.isDropdownShow && fragment}
           </div>
         </div>
       </header>

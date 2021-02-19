@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import "./Backlog.css";
-import TaskItem from "../TaskItem/TaskItem";
+import Task from "../Task/Task";
 import { Link } from "react-router-dom";
 import ExtraList from "../ExtraList/ExtraList";
 
@@ -17,36 +17,26 @@ export const deleteSpaces = (str) => {
   return newStr.toLowerCase();
 };
 
-export default class Backlog extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isExtraListShow: false,
-      isExtraListTasksShow: false,
-    };
-  }
-
-  onShowExtraListTasks = () => {
-    this.state.isExtraListTasksShow
-      ? this.setState({ isExtraListTasksShow: false })
-      : this.setState({
-          isExtraListTasksShow: true,
-        });
+export default class Backlog extends PureComponent {
+  state = {
+    isExtraListShow: false,
+    isExtraListTasksShow: false,
   };
 
-  addTaskHandler = () => {
+  addExtraListHandler = () => {
     this.setState({
       isExtraListShow: true,
     });
   };
 
   closeExtralistHandler = () => {
-    this.state.isExtraListShow
-      ? this.setState({ isExtraListShow: false })
-      : this.setState({
-          isExtraListShow: true,
-        });
+    this.setState({
+      isExtraListShow: false,
+    });
+  };
+
+  toggleExtraListTasks = () => {
+    this.setState({ isExtraListTasksShow: !this.state.isExtraListTasksShow });
   };
 
   render() {
@@ -61,36 +51,42 @@ export default class Backlog extends Component {
       onSelectTask,
     } = this.props;
 
+    const listName = deleteSpaces(title);
+
     return (
-      <section className={`dropdown dropdown-${deleteSpaces(title)}`}>
+      <section className={`dropdown dropdown-${listName}`}>
         <div className="dropdown__header">
           <h4 className="dropdown__title">
-            <Link className="dropdown__link" to={`/${deleteSpaces(title)}`}>
+            <Link className="dropdown__link" to={`/${listName}`}>
               {title}
             </Link>
           </h4>
           <i className="dropdown__header-icon fa fa-ellipsis-h"></i>
         </div>
-        <ul className={`dropdown__list dropdown__list-${deleteSpaces(title)}`}>
-          <TaskItem issues={issues} tasksIdCounter={tasksIdCounter} />
+        <ul className={`dropdown__list dropdown__list-${listName}`}>
+          <Task
+            issues={issues}
+            tasksIdCounter={tasksIdCounter}
+            createTask={createTask}
+          />
         </ul>
-        {this.state.isExtraListShow ? (
+        {this.state.isExtraListShow && (
           <ExtraList
             title={title}
             issues={backlogs[listIndex - 1].issues}
             tasksIdCounter={tasksIdCounter}
             isExtraListShow={this.state.isExtraListShow}
             isExtraListTasksShow={this.state.isExtraListTasksShow}
-            onShowExtraListTasks={this.onShowExtraListTasks}
+            toggleExtraListTasks={this.toggleExtraListTasks}
             listIndex={listIndex}
             onSelectTask={onSelectTask}
             closeExtralistHandler={this.closeExtralistHandler}
           />
-        ) : null}
+        )}
         <button
           className="dropdown__button-add"
-          id={`button-${deleteSpaces(title)}`}
-          onClick={listIndex === 0 ? createTask : this.addTaskHandler}
+          id={`button-${listName}`}
+          onClick={listIndex === 0 ? createTask : this.addExtraListHandler}
           disabled={isDisabledBtn}
         >
           <i className="dropdown__button-icon fa fa-plus"></i>

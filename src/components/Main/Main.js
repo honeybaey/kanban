@@ -1,48 +1,76 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Route } from "react-router-dom";
 import Backlog from "../Backlog/Backlog";
 import BacklogMore from "../BacklogMore/BacklogMore";
 
 import "./Main.css";
 
-let _ = require("lodash/core");
+import isEqual from "lodash/isEqual";
 
-export default class Main extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      backlogs: [],
-    };
-  }
+export default class Main extends PureComponent {
+  state = {
+    backlogs: [],
+    lastChangedBacklogIndex: null,
+  };
 
   componentDidMount() {
-    this.enhancedData();
+    this.enhancedData(this.props.backlogs);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log("prevState: ", prevState.backlogs);
+    console.log("thisState: ", this.state.backlogs);
+
     if (
-      prevState.backlogs.every(
-        (elem, index) => elem === this.state.backlogs[index]
+      !isEqual(
+        prevState.backlogs[prevState.lastChangedBacklogIndex]?.issues,
+        this.state.backlogs[this.state.lastChangedBacklogIndex]?.issues
       )
     ) {
-      this.enhancedData();
+      this.enhancedData(this.state.backlogs);
     }
   }
 
-  enhancedData = () => {
-    const { backlogs } = this.props;
+  enhancedData = (lists) => {
+    const data = [lists[0]];
 
-    const data = [backlogs[0]];
-
-    for (let i = 1; i < backlogs.length; i++) {
+    for (let i = 1; i < lists.length; i++) {
       data.push({
-        ...backlogs[i],
-        isDisabled: !backlogs[i - 1].issues.length,
+        ...lists[i],
+        isDisabled: !lists[i - 1].issues.length,
       });
     }
 
     this.setState({ backlogs: data });
+  };
+
+  onSelectTask = (listIndex, taskIndex) => {
+    const prevList = this.state.backlogs[listIndex - 1].issues;
+    const selectedList = this.state.backlogs[listIndex].issues;
+    const selectedTask = prevList[taskIndex];
+
+    prevList.splice(taskIndex, 1);
+    selectedList.push(selectedTask);
+
+    const changed = this.state.backlogs.map((item, i) => {
+      if (i === listIndex) {
+        return {
+          ...item,
+          issues: selectedList,
+        };
+      }
+
+      if (i === listIndex - 1) {
+        return {
+          ...item,
+          issues: prevList,
+        };
+      }
+
+      return item;
+    });
+
+    this.setState({ backlogs: changed, lastChangedBacklogIndex: listIndex });
   };
 
   render() {
@@ -61,7 +89,7 @@ export default class Main extends Component {
                 listIndex={index}
                 isDisabledBtn={this.state.backlogs[index]?.isDisabled}
                 createTask={this.props.createTask}
-                onSelectTask={this.props.onSelectTask}
+                onSelectTask={this.onSelectTask}
               />
             ))
           }

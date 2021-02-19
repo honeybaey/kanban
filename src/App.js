@@ -7,21 +7,15 @@ import { BrowserRouter } from "react-router-dom";
 const data = require("./assets/data.json");
 
 export default class App extends Component {
-  constructor() {
-    super();
-
-    this.tasksIdCounter = this.getLastTaskId(data);
-
-    this.state = {
-      data: data,
-    };
-  }
+  state = {
+    data: data,
+  };
 
   componentDidMount() {
     // this.setState({ data });
   }
 
-  createTask = (name, taskIndex) => {
+  createTask = () => {
     const newTask = {
       id: this.tasksIdCounter++,
       name: "",
@@ -35,19 +29,6 @@ export default class App extends Component {
     });
   };
 
-  onSelectTask = (listIndex, taskIndex) => {
-    const copy = [...this.state.data];
-
-    const prevList = copy[listIndex - 1].issues;
-    const selectedList = copy[listIndex].issues;
-    const selectedTask = prevList[taskIndex];
-
-    prevList.splice(taskIndex, 1);
-    selectedList.push(selectedTask);
-
-    this.setState({ data: copy });
-  };
-
   getLastTaskId = (data) => {
     const ids = [];
     for (let i = 0; i < data.length; i++) {
@@ -55,6 +36,8 @@ export default class App extends Component {
     }
     return ids.reduce((prev, next) => (next > prev ? next : prev)) + 1;
   };
+
+  tasksIdCounter = this.getLastTaskId(data);
 
   render() {
     return (
@@ -65,7 +48,6 @@ export default class App extends Component {
             backlogs={this.state.data}
             tasksIdCounter={this.tasksIdCounter}
             createTask={this.createTask}
-            onSelectTask={this.onSelectTask}
           />
           <Footer backlogs={this.state.data} />
         </BrowserRouter>

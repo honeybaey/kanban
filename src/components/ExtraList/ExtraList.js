@@ -1,49 +1,54 @@
-import React, { Component } from "react";
+import React from "react";
 import "./ExtraList.css";
 import { deleteSpaces } from "../Backlog/Backlog.js";
 
-export default class ExtraList extends Component {
-  render() {
-    const extralistClassName = `dropdown__list dropdown__list-${deleteSpaces(
-      this.props.title
-    )} extralist`;
+const ExtraList = ({
+  title,
+  toggleExtraListTasks,
+  isExtraListTasksShow,
+  issues,
+  onSelectTask,
+  closeExtralistHandler,
+  listIndex,
+}) => {
+  const extralistClassName = `dropdown__list dropdown__list-${deleteSpaces(
+    title
+  )} extralist`;
 
-    return (
-      <div className="extralist-container">
-        <span
-          className="extralist-head"
-          onClick={this.props.onShowExtraListTasks}
-        >
-          <i
-            className={
-              !this.props.isExtraListTasksShow
-                ? "extralist-icon fa fa-chevron-down"
-                : "extralist-icon fa fa-chevron-up"
-            }
-          ></i>
-        </span>
-        <ul
+  return (
+    <div className="extralist-container">
+      <span className="extralist-head" onClick={toggleExtraListTasks}>
+        <i
           className={
-            !this.props.isExtraListTasksShow
-              ? extralistClassName
-              : `${extralistClassName} show`
+            !isExtraListTasksShow
+              ? "extralist-icon fa fa-chevron-down"
+              : "extralist-icon fa fa-chevron-up"
           }
-        >
-          {this.props.issues.map((item, index) => (
-            <li
-              className="extralist-item"
-              data-task-id={item.id}
-              key={item.id}
-              onClick={() => {
-                this.props.onSelectTask(this.props.listIndex, index);
-                this.props.closeExtralistHandler();
-              }}
-            >
-              {item.name}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-}
+        ></i>
+      </span>
+      <ul
+        className={
+          !isExtraListTasksShow
+            ? extralistClassName
+            : `${extralistClassName} show`
+        }
+      >
+        {issues.map((item, index) => (
+          <li
+            className="extralist-item"
+            data-task-id={item.id}
+            key={item.id}
+            onClick={() => {
+              onSelectTask(listIndex, index);
+              closeExtralistHandler();
+            }}
+          >
+            {item.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ExtraList;
