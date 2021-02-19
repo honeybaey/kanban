@@ -63,7 +63,6 @@ class Header extends PureComponent {
                   : "user__icon fa fa-angle-up"
               }
             ></i>
-            {/* {this.state.isDropdownShow ? fragment : null} */}
             {this.state.isDropdownShow && fragment}
           </div>
         </div>
