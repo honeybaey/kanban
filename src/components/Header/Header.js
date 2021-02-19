@@ -33,9 +33,7 @@ class Header extends PureComponent {
     );
 
     const onShowMenu = () => {
-      this.state.isDropdownShow
-        ? this.setState({ isDropdownShow: false })
-        : this.setState({ isDropdownShow: true });
+      this.setState({ isDropdownShow: !this.state.isDropdownShow });
     };
 
     return (
