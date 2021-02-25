@@ -13,6 +13,13 @@
   -o-transition: 0.3s;
 }
 
+.dropdown__item > input {
+  padding: 0;
+  border: none;
+
+  max-width: 214px; /* ??? */
+}
+
 .dropdown__item:hover {
   background-color: #e1e6e9;
 }

@@ -18,8 +18,8 @@ export default class Main extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("prevState: ", prevState.backlogs);
-    console.log("thisState: ", this.state.backlogs);
+    // console.log("prevState: ", prevState.backlogs);
+    // console.log("thisState: ", this.state.backlogs);
 
     if (
       !isEqual(
@@ -74,22 +74,27 @@ export default class Main extends PureComponent {
   };
 
   render() {
+    const { backlogs } = this.state;
+    const { tasksIdCounter, createTask, isApplyBtnShow, removeApplyBtn } = this.props;
+
     return (
       <main className="main">
         <Route
           path="/"
           exact
           render={() =>
-            this.state.backlogs.map((item, index) => (
+            backlogs.map((item, index) => (
               <Backlog
                 key={item.id}
                 {...item}
-                backlogs={this.state.backlogs}
-                tasksIdCounter={this.props.tasksIdCounter}
+                backlogs={backlogs}
+                tasksIdCounter={tasksIdCounter}
                 listIndex={index}
-                isDisabledBtn={this.state.backlogs[index]?.isDisabled}
-                createTask={this.props.createTask}
+                isDisabledBtn={backlogs[index]?.isDisabled}
+                createTask={createTask}
                 onSelectTask={this.onSelectTask}
+                isApplyBtnShow={isApplyBtnShow}
+                removeApplyBtn={removeApplyBtn}
               />
             ))
           }
@@ -98,10 +103,10 @@ export default class Main extends PureComponent {
           path="/backlog"
           render={() => (
             <BacklogMore
-              key={this.state.backlogs[0].id}
-              {...this.state.backlogs[0]}
-              backlogs={this.state.backlogs[0]}
-              tasksIdCounter={this.props.tasksIdCounter}
+              key={backlogs[0].id}
+              {...backlogs[0]}
+              backlogs={backlogs[0]}
+              tasksIdCounter={tasksIdCounter}
             />
           )}
         />
@@ -109,10 +114,10 @@ export default class Main extends PureComponent {
           path="/ready"
           render={() => (
             <BacklogMore
-              key={this.state.backlogs[1].id}
-              {...this.state.backlogs[1]}
-              backlogs={this.state.backlogs[1]}
-              tasksIdCounter={this.props.tasksIdCounter}
+              key={backlogs[1].id}
+              {...backlogs[1]}
+              backlogs={backlogs[1]}
+              tasksIdCounter={tasksIdCounter}
             />
           )}
         />
@@ -120,10 +125,10 @@ export default class Main extends PureComponent {
           path="/inprogress"
           render={() => (
             <BacklogMore
-              key={this.state.backlogs[2].id}
-              {...this.state.backlogs[2]}
-              backlogs={this.state.backlogs[2]}
-              tasksIdCounter={this.props.tasksIdCounter}
+              key={backlogs[2].id}
+              {...backlogs[2]}
+              backlogs={backlogs[2]}
+              tasksIdCounter={tasksIdCounter}
             />
           )}
         />
@@ -131,10 +136,10 @@ export default class Main extends PureComponent {
           path="/finished"
           render={() => (
             <BacklogMore
-              key={this.state.backlogs[3].id}
-              {...this.state.backlogs[3]}
-              backlogs={this.state.backlogs[3]}
-              tasksIdCounter={this.props.tasksIdCounter}
+              key={backlogs[3].id}
+              {...backlogs[3]}
+              backlogs={backlogs[3]}
+              tasksIdCounter={tasksIdCounter}
             />
           )}
         />

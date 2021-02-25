@@ -1,0 +1,13 @@
+.apply-btn {
+  color: #5e6c84;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  align-self: flex-end;
+  height: 35px;
+  font-size: 18px;
+}
+
+.apply-btn {
+  outline: none;
+}

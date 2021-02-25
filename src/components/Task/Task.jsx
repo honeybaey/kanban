@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Task.css";
 
-export default class Task extends Component {
+/* export default class Task extends Component {
   render() {
     return (
       <>
@@ -13,12 +13,12 @@ export default class Task extends Component {
       </>
     );
   }
-}
+} */
 
-/* export default class Task extends PureComponent {
+export default class Task extends Component {
   constructor() {
     super();
-    this.renderComponent = "span";
+    this.renderComponent = "input";
   }
 
   addTask = () => {
@@ -43,4 +43,3 @@ export default class Task extends Component {
     );
   }
 }
- */

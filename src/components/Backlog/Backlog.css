@@ -38,7 +38,9 @@
   overflow-y: auto;
 }
 
-
+.dropdown__list-backlog {
+  display: flex;
+}
 
 .dropdown__button-add {
   color: #5e6c84;

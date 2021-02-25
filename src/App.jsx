@@ -9,6 +9,7 @@ const data = require("./assets/data.json");
 export default class App extends Component {
   state = {
     data: data,
+    isApplyBtnShow: false,
   };
 
   componentDidMount() {
@@ -18,7 +19,7 @@ export default class App extends Component {
   createTask = () => {
     const newTask = {
       id: this.tasksIdCounter++,
-      name: "",
+      name: "New Task",
     };
 
     const newData = [...this.state.data];
@@ -26,10 +27,11 @@ export default class App extends Component {
 
     this.setState({
       data: newData,
+      isApplyBtnShow: true,
     });
   };
 
-  getLastTaskId = (data) => {
+  getNewTaskId = (data) => {
     const ids = [];
     for (let i = 0; i < data.length; i++) {
       data[i].issues.forEach((issue) => ids.push(issue.id));
@@ -37,7 +39,11 @@ export default class App extends Component {
     return ids.reduce((prev, next) => (next > prev ? next : prev)) + 1;
   };
 
-  tasksIdCounter = this.getLastTaskId(data);
+  tasksIdCounter = this.getNewTaskId(data);
+
+  removeApplyBtn = () => {
+    this.setState({ isApplyBtnShow: false });
+  };
 
   render() {
     return (
@@ -48,6 +54,8 @@ export default class App extends Component {
             backlogs={this.state.data}
             tasksIdCounter={this.tasksIdCounter}
             createTask={this.createTask}
+            isApplyBtnShow={this.state.isApplyBtnShow}
+            removeApplyBtn={this.removeApplyBtn}
           />
           <Footer backlogs={this.state.data} />
         </BrowserRouter>

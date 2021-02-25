@@ -3,6 +3,7 @@ import "./Backlog.css";
 import Task from "../Task/Task";
 import { Link } from "react-router-dom";
 import ExtraList from "../ExtraList/ExtraList";
+import ApplyButton from "../ApplyButton/ApplyButton";
 
 export const deleteSpaces = (str) => {
   const newStr = str.trim();
@@ -21,6 +22,7 @@ export default class Backlog extends PureComponent {
   state = {
     isExtraListShow: false,
     isExtraListTasksShow: false,
+    // isApplyBtnShow: false
   };
 
   addExtraListHandler = () => {
@@ -39,6 +41,10 @@ export default class Backlog extends PureComponent {
     this.setState({ isExtraListTasksShow: !this.state.isExtraListTasksShow });
   };
 
+  /* showApplyBtn = () => {
+    this.setState({isApplyBtnShow: true})
+  } */
+
   render() {
     const {
       title,
@@ -49,6 +55,8 @@ export default class Backlog extends PureComponent {
       isDisabledBtn,
       createTask,
       onSelectTask,
+      isApplyBtnShow,
+      removeApplyBtn
     } = this.props;
 
     const listName = deleteSpaces(title);
@@ -64,11 +72,17 @@ export default class Backlog extends PureComponent {
           <i className="dropdown__header-icon fa fa-ellipsis-h"></i>
         </div>
         <ul className={`dropdown__list dropdown__list-${listName}`}>
-          <Task
-            issues={issues}
-            tasksIdCounter={tasksIdCounter}
-            createTask={createTask}
-          />
+          <div>
+            <Task
+              issues={issues}
+              tasksIdCounter={tasksIdCounter}
+              createTask={createTask}
+            />
+          </div>
+
+          {listIndex === 0 && isApplyBtnShow && (
+            <ApplyButton removeApplyBtn={removeApplyBtn} />
+          )}
         </ul>
         {this.state.isExtraListShow && (
           <ExtraList
