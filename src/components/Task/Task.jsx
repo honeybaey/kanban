@@ -16,10 +16,7 @@ import "./Task.css";
 } */
 
 export default class Task extends Component {
-  constructor() {
-    super();
-    this.renderComponent = "input";
-  }
+  renderComponent = "span";
 
   addTask = () => {
     this.renderComponent = "input";

@@ -16,6 +16,7 @@
 .dropdown__item > input {
   padding: 0;
   border: none;
+  outline: none;
 
   max-width: 214px; /* ??? */
 }
