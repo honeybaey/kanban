@@ -1,6 +1,6 @@
 import React from "react";
 import "./ExtraList.css";
-import { deleteSpaces } from "../Backlog/Backlog";
+import { deleteSpaces } from "./Backlog";
 
 const ExtraList = ({
   title,

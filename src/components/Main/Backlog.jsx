@@ -1,9 +1,9 @@
 import React, { PureComponent } from "react";
 import "./Backlog.css";
-import Task from "../Task/Task";
+import Task from "./Task";
 import { Link } from "react-router-dom";
-import ExtraList from "../ExtraList/ExtraList";
-import ApplyButton from "../ApplyButton/ApplyButton";
+import ExtraList from "./ExtraList";
+import ApplyButton from "./ApplyButton";
 
 export const deleteSpaces = (str) => {
   const newStr = str.trim();

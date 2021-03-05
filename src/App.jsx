@@ -12,8 +12,14 @@ export default class App extends Component {
     isApplyBtnShow: false,
   };
 
-  componentDidMount() {
+  componentDidUpdate(prevProps, prevState) {
     // this.setState({ data });
+    /* if (prevProps.backlogs.length === 0 && this.props.backlogs.length > 0) {
+      this.setState({ data });
+    } */
+
+    console.log(prevState.data);
+    console.log(this.state.data);
   }
 
   createTask = () => {

@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import { Route } from "react-router-dom";
-import Backlog from "../Backlog/Backlog";
-import BacklogMore from "../BacklogMore/BacklogMore";
+import Backlog from "./Backlog";
+import BacklogMore from "./BacklogMore";
 
 import "./Main.css";
 
@@ -75,7 +75,12 @@ export default class Main extends PureComponent {
 
   render() {
     const { backlogs } = this.state;
-    const { tasksIdCounter, createTask, isApplyBtnShow, removeApplyBtn } = this.props;
+    const {
+      tasksIdCounter,
+      createTask,
+      isApplyBtnShow,
+      removeApplyBtn,
+    } = this.props;
 
     return (
       <main className="main">

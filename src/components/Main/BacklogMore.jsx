@@ -1,5 +1,5 @@
 import React from "react";
-import TaskMore from "../TaskMore/TaskMore";
+import TaskMore from "./TaskMore";
 import "./BacklogMore.css";
 
 const BacklogMore = ({ issues, dataMock, tasksIdCounter }) => {
