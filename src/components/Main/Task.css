@@ -1,0 +1,30 @@
+.dropdown__item {
+  margin: 15px 0 0 0;
+  font-size: 1.125rem;
+  line-height: 1.3125rem;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 7px 9px 7px 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -o-transition: 0.3s;
+}
+
+.dropdown__item > input {
+  padding: 0;
+  border: none;
+  outline: none;
+
+  max-width: 214px; /* ??? */
+}
+
+.dropdown__item:hover {
+  background-color: #e1e6e9;
+}
+
+.dropdown__item:focus {
+  outline: none;
+}

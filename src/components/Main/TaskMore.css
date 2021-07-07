@@ -1,0 +1,28 @@
+.task-container {
+  padding: 22px 28px;
+  background-color: #fff;
+  min-height: 548px;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.task-container:last-child {
+  margin-bottom: 0;
+}
+
+.task-container:focus {
+  box-shadow: 0px 0px 0 3px #ffffff7a;
+}
+
+.task-title {
+  margin: 0;
+  font-weight: normal;
+}
+
+.task-description {
+  max-width: 621px;
+  font-size: 1rem;
+  line-height: 1.3125rem;
+}
